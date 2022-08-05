@@ -55,22 +55,26 @@ end
 
 //This part handles the odd parity check for the output p_parity_out
 always @(data_length) begin
-    if (data_length) 
+    if (data_length) begin
         DataIn = FrameOut[8:1];
-    else 
+    end
+    else begin
         DataIn = FrameOut[7:1];
-// prepare the parallel odd parity
-    if(^DataIn)
-        ParHolder = 1'b0;
-    else
-        ParHolder = 1'b1;
+    end
+    //Parallel Odd parity
+    if (^DataIn) begin
+      ParHolder = 1'b0;
+    end
+    else begin
+      ParHolder = 1'b1;
+    end
 end
 
 
 //This part handles the outputs
-always @(posedge rst, posedge BaudOut) begin
+always @(negedge rst, posedge BaudOut) begin
     
-    if (rst) begin
+    if (~rst) begin
     data_out        = 'b1;
     p_parity_out    = 'b0;
     tx_active       = 'b0;
