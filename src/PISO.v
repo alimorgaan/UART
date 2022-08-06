@@ -2,72 +2,33 @@
 //Chipions program's final project for phase(001) "verilog", UART-Tx.
 //Undergraduate student, ECE department, Alexandria university.
 
-module PisoReg (
+module PisoReg 
+  #(parameter Bits = 11;)(
   input [1:0]   parity_type, 
 	input 		    stop_bits, 	//low when using 1 stop bit, high when using two stop bits.
 	input 		    data_length, 	//low when using 7 data bits, high when using 8.
-  input         send, rst,      
-  input [10:0]  FrameOut,
-  input         BaudOut,
-
+  input         send, rst,  
+  input         BaudOut,    
+  input [Bits - 1:0]  FrameOut,
+  
   output reg 	data_out, 		//Serial data_out
 	output reg 	p_parity_out, 	//parallel odd parity output, low when using the frame parity.
 	output reg 	tx_active, 		//high when Tx is transmitting, low when idle.
 	output reg 	tx_done 		//high when transmission is done, low when not.
 );
 
-//Internal declarations
-integer   SerialPos    = 0;  
-integer   FrameLength  = 0;
-//  integer   DataInLength = 0;
+//Internal declarations  
 reg       ParHolder;
 reg [7:0] DataIn;
-reg [1:0] SelSize;
-
-//This part holds all the possible sizes of the frame
-always @(data_length,stop_bits,parity_type) begin
-    SelSize      = {data_length,stop_bits};
-    if (parity_type = 'b00 || parity_type = 'b11 ) begin    //Calculates the length with no parity bit
-        case (SelSize)
-          'b01  : begin           // 7-bits for data_length, 2-bits for stop_bits
-            FrameLength  = 10;
-            //DataInLength = 7;
-          end
-          'b10  : begin           // 8-bits for data_length, 1-bit for stop_bits
-            FrameLength  = 10;
-            //DataInLength = 8;
-          end 
-        endcase
-    end
-    else begin                  //Calculates the length with parity bit
-      case (SelSize)
-          'b01  : begin           // 7-bits for data_length, 2-bits for stop_bits, 1-bit for parity
-            FrameLength  = 11;
-            //DataInLength = 7;
-          end
-          'b10  : begin           // 8-bits for data_length, 1-bit for stop_bits, 1-bit for parity
-            FrameLength  = 11;
-            //DataInLength = 8;
-          end 
-        endcase
-    end
-end
+integer   SerialPos    = 0;
 
 //This part handles the odd parity check for the output p_parity_out
-always @(data_length) begin
-    if (data_length) begin
-        DataIn = FrameOut[8:1];
-    end
-    else begin
-        DataIn = FrameOut[7:1];
-    end
+always @(data_length, FrameOut) begin
+
+    DataIn = data_length? FrameOut[8:1] : {1'b0, FrameOut[7:1]};
     //Parallel Odd parity
-    if (^DataIn) begin
-      ParHolder = 1'b0;
-    end
-    else begin
-      ParHolder = 1'b1;
-    end
+    ParHolder = (^DataIn)? 1'b0 : 1'b1;
+
 end
 
 
@@ -86,7 +47,7 @@ always @(negedge rst, posedge BaudOut) begin
             tx_active = 1'b1;
             data_out         = FrameOut[SerialPos];
             SerialPos        = SerialPos + 1;
-            if (SerialPos == (FrameLength - 1)) begin
+            if (SerialPos == (Bits - 1)) begin
                 tx_done   = 1'b1;
                 tx_active = 1'b0;
             end
