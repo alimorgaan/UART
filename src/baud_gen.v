@@ -10,7 +10,7 @@ module baud_gen (
 input [1:0] baud_rate , 
 input clock ,
 input reset , 
-output baud_out 
+output reg baud_out 
 );
     
 reg [13 : 0] counter ; 
