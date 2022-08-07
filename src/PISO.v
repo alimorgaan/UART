@@ -3,15 +3,15 @@
 //Undergraduate student, ECE department, Alexandria university.
 
 module PisoReg 
-  #(parameter Bits = 11;)(
-  input [1:0]   parity_type, 
-	input 		    stop_bits, 	//low when using 1 stop bit, high when using two stop bits.
-	input 		    data_length, 	//low when using 7 data bits, high when using 8.
-  input         send, rst,  
-  input         BaudOut,    
-  input [Bits - 1:0]  FrameOut,
+  #(parameter Bits = 11)(
+    input [1:0]   parity_type, 
+	input 		  stop_bits, 	//low when using 1 stop bit, high when using two stop bits.
+    input 		  data_length, 	//low when using 7 data bits, high when using 8.
+    input         send, rst,  
+    input         BaudOut,    
+    input [Bits - 1:0]  FrameOut,
   
-  output reg 	data_out, 		//Serial data_out
+    output reg 	data_out, 		//Serial data_out
 	output reg 	p_parity_out, 	//parallel odd parity output, low when using the frame parity.
 	output reg 	tx_active, 		//high when Tx is transmitting, low when idle.
 	output reg 	tx_done 		//high when transmission is done, low when not.
@@ -21,6 +21,7 @@ module PisoReg
 reg       ParHolder;
 reg [7:0] DataIn;
 integer   SerialPos    = 0;
+
 
 //This part handles the odd parity check for the output p_parity_out
 always @(data_length, FrameOut) begin
@@ -43,19 +44,19 @@ always @(negedge rst, posedge BaudOut) begin
     end
     else begin
         if (send) begin
-            tx_done   = 1'b0;
-            tx_active = 1'b1;
-            data_out         = FrameOut[SerialPos];
-            SerialPos        = SerialPos + 1;
             if (SerialPos == (Bits - 1)) begin
                 tx_done   = 1'b1;
                 tx_active = 1'b0;
+                SerialPos = 0;
+                //data_out  = 'b1;
             end
             else begin
+                data_out  = FrameOut[SerialPos];
+                SerialPos = SerialPos + 1;
                 tx_done   = 1'b0;
                 tx_active = 1'b1;
             end
-            if (parity_type  = 'b00 || parity_type = 'b11 ) begin
+            if (parity_type  == 'b00 || parity_type == 'b11 ) begin
                 p_parity_out = ParHolder;
             end
             else begin
@@ -63,8 +64,10 @@ always @(negedge rst, posedge BaudOut) begin
             end
         end
         else begin
-        tx_done   = 1'b1;
-        tx_active = 1'b0;
+        data_out        = 'b1;
+        p_parity_out    = 'b0;
+        tx_done         = 1'b1;
+        tx_active       = 1'b0;
         end
     end  
 end
