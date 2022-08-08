@@ -9,7 +9,7 @@
 module baud_gen (
 input [1:0] baud_rate , 
 input clock ,
-input reset , 
+input rst , 
 output baud_out 
 );
     

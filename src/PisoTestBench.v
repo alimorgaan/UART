@@ -35,8 +35,8 @@ end
 initial begin
     Trst = 1'b0;
     #10 Trst = 1'b1;
-    /*#200 Trst = 1'b0;
-    #20  Trst = 1'b1;*/
+    200 Trst = 1'b0;
+    #20  Trst = 1'b1;
 end
 
 
@@ -44,8 +44,8 @@ end
 initial begin
     Tsend = 1'b0;
     #10 Tsend = 1'b1;
-    /*#150 Tsend = 1'b0;
-    #50  Tsend = 1'b1;*/
+    #150 Tsend = 1'b0;
+    #50  Tsend = 1'b1;
 end
 
 
@@ -84,5 +84,8 @@ initial begin
     
 end
 
+initial begin
+    #1780 $stop;
+end
 
 endmodule
