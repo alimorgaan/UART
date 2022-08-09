@@ -5,7 +5,7 @@ module parity (
     output reg parity_out 
 );
         
-always @(*) begin
+aalways @(*) begin
     
     if (~rst) begin   //active_LOW reset 
         parity_out =0;
@@ -14,11 +14,19 @@ always @(*) begin
     
     case (parity_type)
        
-       
+        2'b00:
+          parity_out<=0;     //No parity
+
+        
+        
         2'b01:               //odd parity
             if (^ data_in ) begin
             parity_out<=0;
          end
+         else if ( data_in==0 ) begin
+            parity_out<=0;
+         end
+         
          else begin parity_out<=1;
          
          end
@@ -32,14 +40,13 @@ always @(*) begin
          else begin parity_out<=0;
          
          end       
-        
-         default: parity_out<=0; //for parity_type = 00 , 11 or any other unexpected values 
+        2'b11:              // no parity on the serial frame
+         parity_out<=0;    
+
+        default: parity_out<=0; //for any other unexpected values 
     
     endcase 
     end
-
-
-
 end
 
 
