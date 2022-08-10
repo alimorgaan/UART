@@ -3,8 +3,14 @@ input rst;
 input tx_active;
 input [7:0] data_in;
 input [1:0] parity_type;
-input data_length, stop_bits;
-
+input data_length, stop_bits; 
+/*
+	data_length = 0 --->>7-bits
+	data_length = 1 --->>8-bits
+	
+	stop_bits = 0	--->>1-bit
+	stop_bits = 1	--->>2-bits
+*/
 output reg [10:0] frame_out;
 
 reg [3:0] frame_select;
@@ -15,13 +21,13 @@ reg parity_bit;
 //Deciding the value of parity if allowed
 always @(parity_type)begin
 	if (parity_type == 2'b01 )		begin//Odd Parity
-		if (data_length == 1)
+		if (data_length == 0)
 		parity_bit = ^data_in[6:0] ? 1'b0:1'b1;
 		else
 		parity_bit = ^data_in ? 1'b0:1'b1;
 	end
 	else if (parity_type == 2'b10 )	begin//Even Parity
-		if (data_length == 1)
+		if (data_length == 0)
 		parity_bit = ^data_in[6:0] ? 1'b1:1'b0;
 		else
 		parity_bit = ^data_in ? 1'b1:1'b0;
