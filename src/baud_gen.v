@@ -32,6 +32,7 @@ always @(posedge clock , negedge reset) begin
     
 end
 
+
 always @(baud_rate) begin
     case (baud_rate)
         2'b00 : limit = 'd10417 ; 

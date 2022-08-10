@@ -16,7 +16,6 @@ baud_gen baudUT(
 ); 
 
 initial begin
-   
     reset = 0 ; 
     #10; 
     reset = 1 ; 
