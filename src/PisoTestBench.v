@@ -35,7 +35,7 @@ end
 initial begin
     Trst = 1'b0;
     #10 Trst = 1'b1;
-    200 Trst = 1'b0;
+    #200 Trst = 1'b0;
     #20  Trst = 1'b1;
 end
 
