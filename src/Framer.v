@@ -1,4 +1,4 @@
-module Framer(data_in, rst, frame_out, data_length, parity_type, stop_bits, tx_active);
+module Framer(data_in, rst, frame_out, data_length, parity_type, stop_bits);
 input rst;
 input parity_out;
 input [7:0] data_in;
