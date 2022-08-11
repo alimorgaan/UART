@@ -5,7 +5,7 @@ module parity (
     output reg parity_out 
 );
         
-aalways @(*) begin
+always @(*) begin
     
     if (~rst) begin   //active_LOW reset 
         parity_out =0;
