@@ -13,7 +13,7 @@ reg [10:0]  TFrameOut;
 wire TDataOut, TParllParity, TActive, TDone;
 
 //Instantiation of the designed block
-PisoReg MyTest(
+PISO MyTest(
     .parity_type(TParityType), .BaudOut(TBaudOut),
     .stop_bits(TStopBits), .data_length(TDataLength),
     .send(Tsend), .rst(Trst), .FrameOut(TFrameOut),

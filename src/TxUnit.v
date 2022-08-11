@@ -24,7 +24,7 @@ parity Unit1(
 );
 
 //Frame generator unit instantiation
-frame_gen Unit2(
+Framer Unit2(
     .rst(rst), .data_in(data_in), .parity_type(parity_type), .stop_bits(stop_bits), .data_length(data_length), .parity_out(ParOutUnit),     //inputs
     
     .frame_out(FramOutUnit)     //output

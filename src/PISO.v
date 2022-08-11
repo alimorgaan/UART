@@ -2,7 +2,7 @@
 //Chipions program's final project for phase(001) "verilog", UART-Tx.
 //Undergraduate student, ECE department, Alexandria university.
 
-module PisoReg 
+module PISO 
   #(parameter Bits = 11)(
     input [1:0]   parity_type, 
 	input 		  stop_bits, 	//low when using 1 stop bit, high when using two stop bits.
