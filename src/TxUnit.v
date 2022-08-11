@@ -8,7 +8,7 @@ module TxUnit(
     input   [1:0]   parity_type, baud_rate,
     input   [7:0]  data_in,
 
-    output reg  data_out, p_parity_out, tx_active, tx_done
+    output data_out, p_parity_out, tx_active, tx_done
 );
 
 //interconnection 
@@ -25,7 +25,8 @@ parity Unit1(
 
 //Frame generator unit instantiation
 Framer Unit2(
-    .rst(rst), .data_in(data_in), .parity_type(parity_type), .stop_bits(stop_bits), .data_length(data_length), .parity_out(ParOutUnit),     //inputs
+    .rst(rst), .data_in(data_in), .parity_type(parity_type), .stop_bits(stop_bits),
+     .data_length(data_length), .parity_out(ParOutUnit),     //inputs
     
     .frame_out(FramOutUnit)     //output
 );

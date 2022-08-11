@@ -1,6 +1,7 @@
 module frame_tester;
 reg [7:0] Din_t;
 reg [1:0] p_t;
+reg p_o; 
 wire [10:0] f_t;
 reg rst_t, tx_t, dL_t, s_t;
 
@@ -48,6 +49,6 @@ Din_t = 8'b00000000; p_t = 2'b01; dL_t = 1'b0; s_t = 1'b1; //Odd parity, 7-bit d
 
 #100;
 end
-Framer U1 (Din_t, rst_t, f_t, dL_t, p_t, s_t, tx_t);
+Framer U1 (Din_t, rst_t,p_o, f_t, dL_t, p_t, s_t);
 
 endmodule
