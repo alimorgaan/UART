@@ -1,5 +1,5 @@
 # UART
-## implementaion of UART transmitter & receiver using verilog
+## Implementaion of UART Transmitter & Receiver Using Verilog
 
 # Transmitter Architecture
 
