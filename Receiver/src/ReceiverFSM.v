@@ -1,5 +1,5 @@
 module ReceiverFSM (
-    input baudRateOut ,
+    input baudOut ,
     input serialInput ,
     input rst , 
     output reg [8:0] dataParityOut , 
@@ -10,7 +10,7 @@ module ReceiverFSM (
     reg [3:0] state ; 
     reg [3:0] counter ; 
 
-    always @(posedge baudRateOut)begin
+    always @(posedge baudOut)begin
         case (state)
             4'b0000:begin //idle
                 $display("im idle but baud is working"); 

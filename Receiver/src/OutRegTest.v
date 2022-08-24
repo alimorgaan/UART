@@ -18,8 +18,11 @@ module OutRegTest ();
     initial begin
         data = 0 ; 
         ready = 0 ; 
+
+        rst = 1 ; 
+        #200;
         rst = 0 ; 
-        #500;
+        #200;
         rst = 1 ; 
 
         data = 8'b00110011; 

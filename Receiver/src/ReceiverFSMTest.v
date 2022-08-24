@@ -5,14 +5,14 @@ module ReceiverFSMTest ();
 
 
 
-    reg baudRateOut ; 
+    reg baudOut ; 
     reg serialInput ; 
     reg rst ; 
     wire [8:0] dataParityOut ; 
     wire ready ; 
 
     ReceiverFSM ReceiverFSMUT(
-        .baudRateOut(baudRateOut), 
+        .baudOut(baudOut), 
         .serialInput(serialInput), 
         .rst(rst), 
         .dataParityOut(dataParityOut),
@@ -21,6 +21,8 @@ module ReceiverFSMTest ();
 
     initial begin
         //reset the system 
+        rst = 1 ; 
+        #200; 
         rst = 0 ; 
         #200 ; 
         rst = 1 ; 
@@ -65,7 +67,6 @@ module ReceiverFSMTest ();
         #416666 ;
         //idle 
         serialInput = 1 ; 
-
     end
 
 
@@ -73,9 +74,9 @@ module ReceiverFSMTest ();
     //testing 2400 bit/second speed
     //oversampling ---> 16*2400 ---> 26041 ns
     always begin
-        baudRateOut = 0 ; 
+        baudOut = 0 ; 
         #13020.3333 ; 
-        baudRateOut = 1 ; 
+        baudOut = 1 ; 
         #13020.3333 ; 
     end
 
