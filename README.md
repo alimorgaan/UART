@@ -23,10 +23,10 @@
 
 ### Receiver FSM
 
-![fsm](https://user-images.githubusercontent.com/32411364/186527438-f673238d-ff57-4415-9099-c25d6854d879.PNG)
-
 - using oversamplig to generate 16 tick for each bit. 
 - when the state reach tick 8 (in the middle of bit time period) we capture the bit and save it in internal register. 
+
+![fsm](https://user-images.githubusercontent.com/32411364/186527438-f673238d-ff57-4415-9099-c25d6854d879.PNG)
 
 ### Receiver Testbench Simulation 
 
