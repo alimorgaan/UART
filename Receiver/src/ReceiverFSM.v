@@ -1,4 +1,4 @@
-module ReciverFSM (
+module ReceiverFSM (
     input baudRateOut ,
     input serialInput ,
     input rst , 

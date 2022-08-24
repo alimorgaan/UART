@@ -1,7 +1,7 @@
 
 `timescale 1ns/1ns 
 
-module ReciverFSMTest ();
+module ReceiverFSMTest ();
 
 
 
@@ -11,7 +11,7 @@ module ReciverFSMTest ();
     wire [8:0] dataParityOut ; 
     wire ready ; 
 
-    ReciverFSM ReciverFSMUT(
+    ReceiverFSM ReceiverFSMUT(
         .baudRateOut(baudRateOut), 
         .serialInput(serialInput), 
         .rst(rst), 
