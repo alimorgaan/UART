@@ -13,7 +13,7 @@ module ReceiverFSM (
     always @(posedge baudOut)begin
         case (state)
             4'b0000:begin //idle
-                $display("im idle but baud is working"); 
+                
             end
             4'b0001:begin //start bit
                 if(counter == 15) begin
