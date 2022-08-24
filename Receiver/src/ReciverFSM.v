@@ -2,7 +2,8 @@ module ReciverFSM (
     input baudRateOut ,
     input serialInput ,
     input rst , 
-    output reg [8:0] dataParityOut 
+    output reg [8:0] dataParityOut , 
+    output reg ready 
 );
     
 
@@ -138,6 +139,7 @@ module ReciverFSM (
                 end else 
                 if(counter == 15)begin
                     state =  4'b1011 ; 
+                    ready = 1 ; 
                     counter = 0 ;
                 end else 
                 begin
@@ -147,6 +149,7 @@ module ReciverFSM (
             4'b1011:begin // stop
                 if(counter == 15) begin 
                     state =  4'b0000 ; 
+                    ready = 0 ; 
                     counter = 0 ;
                 end else 
                 counter = counter + 1; 
@@ -165,5 +168,6 @@ module ReciverFSM (
         state = 4'b0000 ;
         counter = 4'b0000 ;
         dataParityOut = 8'b00000000; 
+        ready = 0 ; 
     end
 endmodule

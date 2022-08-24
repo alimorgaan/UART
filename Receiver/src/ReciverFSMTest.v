@@ -9,12 +9,14 @@ module ReciverFSMTest ();
     reg serialInput ; 
     reg rst ; 
     wire [8:0] dataParityOut ; 
+    wire ready ; 
 
     ReciverFSM ReciverFSMUT(
         .baudRateOut(baudRateOut), 
         .serialInput(serialInput), 
         .rst(rst), 
-        .dataParityOut(dataParityOut)
+        .dataParityOut(dataParityOut),
+        .ready(ready) 
     );  
 
     initial begin

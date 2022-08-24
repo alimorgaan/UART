@@ -43,8 +43,6 @@ always @(posedge baudRateOut) begin
         end
     end 
 end
-
-
 always @(negedge rst) begin
     idleFlag = 1 ; 
     startFlag = 0 ; 
